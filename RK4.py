@@ -21,9 +21,6 @@
 #  Returns the current Y(I)
 
 
-import numpy as np
-
-
 class RK4():
     """Class to integrate  systems of ordinary differential equations
     of the form : y_i'=f_i(x,y_i(x))
@@ -44,7 +41,8 @@ class RK4():
         Return a numpy array containing the values of the f_i
         ==>f_i (x_i,y(x_i)), for this x.
         - stepSize: Size for each step in the Runge-Kutta method
-        - initialPoint: Value of x where the initialValues for y_i are specified
+        - initialPoint: Value of x where the initialValues
+          for y_i are specified
         - initialValues: Initial values for y_i at x=InitialPoint
         """
         if(not hasattr(function, '__call__')):
@@ -53,7 +51,8 @@ class RK4():
 
         if(len(initialValues) != len(function(initialPoint, initialValues))):
             raise ValueError(
-                ('The size of the initialValues array is not the same as the one returned by function'))
+                ("The size of the initialValues array is not the same"
+                 "as the one returned by function"))
 
         # user input
         self._h = stepSize
@@ -113,4 +112,3 @@ class RK4():
         self._y = self._y + (self._k1 + 2 * self._k2 +
                              2 * self._k3 + self._k4) / 6.0
         self._x = self._x + self._h
-

@@ -1,12 +1,14 @@
 from RK4 import RK4
 import numpy as np
 
-#constant gamma
-gamma = 0.3 #day^{-1}
+# constant gamma
+gamma = 0.3  # day^{-1}
 
-def beta(time,gamma):
+
+def beta(time, gamma):
     R0 = 2.5
     return R0 * gamma
+
 
 def testSystem(time, vector_S_I_R):
     """
@@ -14,7 +16,7 @@ def testSystem(time, vector_S_I_R):
     dR/dt = gamma * I
     dS/dt = -dI/dt-dR/dt
     """
-    dI = beta(time,gamma) * vector_S_I_R[1] * \
+    dI = beta(time, gamma) * vector_S_I_R[1] * \
         vector_S_I_R[0] - gamma * vector_S_I_R[1]
     dR = gamma * vector_S_I_R[1]
     dS = -1 * dI - 1 * dR
@@ -27,11 +29,11 @@ if __name__ == "__main__":
     Step = 0.1
     NSteps = int(time / Step)
 
-    initI = 1e-05 # Initial percentage of Infected
-    initS = 1.-initI  # Initial percentage of Susceptible
-    initR =0  #Initial percentage of Recovered
+    initI = 1e-05  # Initial percentage of Infected
+    initS = 1. - initI  # Initial percentage of Susceptible
+    initR = 0  # Initial percentage of Recovered
     myrk4 = RK4(testSystem, Step, 0, np.array([initS, initI, initR]))
-    
+
     t = np.arange(0.0, time, Step)
     S = np.zeros(t.shape)
     I = np.zeros(t.shape)
@@ -53,7 +55,7 @@ if __name__ == "__main__":
     from matplotlib.ticker import FormatStrFormatter
     ax.set(xlabel='time (days)', ylabel='Fraction', title='SIR')
     ax.yaxis.set_major_formatter(FormatStrFormatter('%1.2f'))
-    #ax.set_yscale('log')
+    # ax.set_yscale('log')
     legend = ax.legend(loc='center right')
     fig.savefig("SIR.png")
 

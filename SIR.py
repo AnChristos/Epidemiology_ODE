@@ -1,12 +1,14 @@
 from RK4 import RK4
 import numpy as np
 
-# constant gamma
-gamma = 0.3  # day^{-1}
+
+#Removal rate of gamma 1/3 day-1 
+#R=3 , leads to beta = 1 day-1 
+gamma = 1./3.  # day^{-1}
 
 
 def beta(time, gamma):
-    R0 = 2.5
+    R0 = 3.0
     return R0 * gamma
 
 

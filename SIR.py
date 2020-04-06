@@ -14,7 +14,7 @@ def beta(time, gamma):
 
 def testSystem(time, vector_S_I_R):
     """
-    dI/dt = beta * I * S/N - gamma*I
+    dI/dt = beta * I * S - gamma*I
     dR/dt = gamma * I
     dS/dt = -dI/dt-dR/dt
     """

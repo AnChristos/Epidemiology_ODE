@@ -2,25 +2,28 @@ from RK4 import RK4
 import numpy as np
 
 
-#Removal rate of gamma 1/3 day-1 
-#R=3 , leads to beta = 1 day-1 
-gamma = 1./3.  # day^{-1}
+# Removal rate (beta) 1/3 day-1
+# Infected people that cease to take part in the transmission per day
+beta = 1. / 3.  # day^{-1}
 
 
-def beta(time, gamma):
+# R0=3 , 
+# leads to alpha = 1 day-1
+# One S<->I contact lead to a new infection per day
+def alpha(time, beta):
     R0 = 3.0
-    return R0 * gamma
+    return R0 * beta
 
 
 def testSystem(time, vector_S_I_R):
     """
-    dI/dt = beta * I * S - gamma*I
-    dR/dt = gamma * I
+    dI/dt = alpha * I * S - beta*I
+    dR/dt = beta * I
     dS/dt = -dI/dt-dR/dt
     """
-    dI = beta(time, gamma) * vector_S_I_R[1] * \
-        vector_S_I_R[0] - gamma * vector_S_I_R[1]
-    dR = gamma * vector_S_I_R[1]
+    dI = alpha(time, beta) * vector_S_I_R[1] * \
+        vector_S_I_R[0] - beta * vector_S_I_R[1]
+    dR = beta * vector_S_I_R[1]
     dS = -1 * dI - 1 * dR
     return np.array([dS, dI, dR])
 
